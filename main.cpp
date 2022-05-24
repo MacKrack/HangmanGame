@@ -10,6 +10,11 @@ void printMessage(string message, bool printTop = true, bool printBottom = true)
         cout << "+---------------------------------+" << endl;
         cout << "|";
     }
+    // printing the side border
+    else
+    {
+        cout << "|";
+    }
 
     // centring the message on screen
     bool front = true;
@@ -33,11 +38,81 @@ void printMessage(string message, bool printTop = true, bool printBottom = true)
         cout << "|" << endl;
         cout << "+---------------------------------+" << endl;
     }
+    // printing the side border
+    else
+    {
+        cout << "|" << endl;
+    }
+}
+
+void drawHangman(int guessCount = 0)
+{
+    if (guessCount >= 1)
+    {
+        printMessage("|", false, false);
+    }
+    else
+    {
+        printMessage("", false, false);
+    }
+    if (guessCount >= 2)
+    {
+        printMessage("|", false, false);
+    }
+    else
+    {
+        printMessage("", false, false);
+    }
+    if (guessCount >= 3)
+    {
+        printMessage("O", false, false);
+    }
+    else
+    {
+        printMessage("", false, false);
+    }
+    if (guessCount == 4)
+    {
+        printMessage("/", false, false);
+    }
+    if (guessCount == 5)
+    {
+        printMessage("/|", false, false);
+    }
+    if (guessCount >= 6)
+    {
+        printMessage("/|\\", false, false);
+    }
+    else
+    {
+        printMessage("", false, false);
+    }
+    if (guessCount >= 7)
+    {
+        printMessage("|", false, false);
+    }
+    else
+    {
+        printMessage("", false, false);
+    }
+    if (guessCount == 8)
+    {
+        printMessage("/", false, false);
+    }
+    if (guessCount >= 9)
+    {
+        printMessage("/ \\", false, false);
+    }
+    else
+    {
+        printMessage("", false, false);
+    }
 }
 
 int main()
 {
     printMessage("HANG MAN MAN HANG");
+    drawHangman(9);
     getchar();
     return 0;
 }
