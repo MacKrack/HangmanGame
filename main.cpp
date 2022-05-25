@@ -109,10 +109,33 @@ void drawHangman(int guessCount = 0)
     }
 }
 
+void printLetters(string input, char from, char to)
+{
+    string s;
+    for (char i = from; i <= to; i++)
+    {
+        if (input.find(i) == string::npos)
+        {
+            s += i;
+            s += " ";
+        }
+        else
+        {
+            s += "  ";
+        }
+    }
+    printMessage(s, false, false);
+}
+
+// start to make a printLetters() and then printAvaliableLetters()
+
 int main()
 {
+    string guesses;
     printMessage("HANG MAN MAN HANG");
     drawHangman(9);
+    printLetters("ALEXA", 'A', 'M');
+    printLetters("ALEXA", 'N', 'Z');
     getchar();
     return 0;
 }
