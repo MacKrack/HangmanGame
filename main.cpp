@@ -127,15 +127,44 @@ void printLetters(string input, char from, char to)
     printMessage(s, false, false);
 }
 
-// start to make a printLetters() and then printAvaliableLetters()
+void printAvailableLetters(string taken)
+{
+    printMessage("Available Letters");
+    printLetters(taken, 'A', 'M');
+    printLetters(taken, 'N', 'Z');
+}
+
+bool printWordAndCheckWin(string word, string guessed)
+{
+    bool won = true;
+    string s;
+    for (int i = 0; i < word.length(); i++)
+    {
+        if (guessed.find(word[i]) == string::npos)
+        {
+            won = false;
+            s += "_ ";
+        }
+        else
+        {
+            s += word[i];
+            s += " ";
+        }
+    }
+    printMessage(s, false);
+    return won;
+}
+
+
 
 int main()
 {
-    string guesses;
-    printMessage("HANG MAN MAN HANG");
+    string guesses = "ABHJIKKLL";
+    printMessage("HANG MAN");
     drawHangman(9);
-    printLetters("ALEXA", 'A', 'M');
-    printLetters("ALEXA", 'N', 'Z');
+    printAvailableLetters(guesses);
+    printMessage("Guess the word");
+    printWordAndCheckWin("ALEXES", guesses);
     getchar();
     return 0;
 }
