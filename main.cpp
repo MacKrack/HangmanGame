@@ -1,4 +1,9 @@
 #include <iostream>
+#include <vector>
+#include <fstream>
+#include <string>
+#include <cstdlib>
+#include <time.h>
 
 using namespace std;
 
@@ -155,11 +160,38 @@ bool printWordAndCheckWin(string word, string guessed)
     return won;
 }
 
+string loadRandomWord(string path)
+{
+    int lineCount = 0;
+    string word;
+    vector<string> v;
+    ifstream reader(path);
 
+    if (reader.is_open())
+    {
+        while (std::getline(reader, word))
+        {
+            v.push_back(word);
+        }
+        int randomLine = rand() % v.size();
+
+        word = v.at(randomLine);
+
+        reader.close();
+    }
+
+    return word;
+}
+
+// start from repair rand()
 
 int main()
 {
+    srand(time(NULL));
     string guesses = "ABHJIKKLL";
+    string wordToGuess;
+    wordToGuess = loadRandomWord("words.txt");
+    cout << wordToGuess << endl << endl;
     printMessage("HANG MAN");
     drawHangman(9);
     printAvailableLetters(guesses);
