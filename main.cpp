@@ -78,11 +78,11 @@ void drawHangman(int guessCount = 0)
     }
     if (guessCount == 4)
     {
-        printMessage("/", false, false);
+        printMessage("/  ", false, false);
     }
     if (guessCount == 5)
     {
-        printMessage("/|", false, false);
+        printMessage("/| ", false, false);
     }
     if (guessCount >= 6)
     {
@@ -102,7 +102,7 @@ void drawHangman(int guessCount = 0)
     }
     if (guessCount == 8)
     {
-        printMessage("/", false, false);
+        printMessage("/  ", false, false);
     }
     if (guessCount >= 9)
     {
@@ -183,20 +183,65 @@ string loadRandomWord(string path)
     return word;
 }
 
-// start from repair rand()
+int triesLeft(string word, string guessed)
+{
+    int error = 0;
+    for (int i = 0; i < guessed.length(); i++)
+    {
+        if (word.find(guessed[i]) == string::npos)
+        {
+            error++;
+        }
+    }
+    return error;
+}
 
 int main()
 {
     srand(time(NULL));
-    string guesses = "ABHJIKKLL";
+    string guesses;
     string wordToGuess;
     wordToGuess = loadRandomWord("words.txt");
-    cout << wordToGuess << endl << endl;
-    printMessage("HANG MAN");
-    drawHangman(9);
-    printAvailableLetters(guesses);
-    printMessage("Guess the word");
-    printWordAndCheckWin("ALEXES", guesses);
+    int tries = 0;
+    bool win = false;
+    do
+    {
+        system("clear");
+        printMessage("HANGMAN");
+        drawHangman(tries);
+        printAvailableLetters(guesses);
+        printMessage("Guess the word");
+        win = printWordAndCheckWin(wordToGuess, guesses);
+
+        if (win)
+        {
+            break;
+        }
+
+        char x;
+        cout << ">";
+        cin >> x;
+
+        if (guesses.find(x) == string::npos)
+        {
+            guesses += x;
+        }
+
+        tries = triesLeft(wordToGuess, guesses);
+
+    } while (tries < 10);
+
+    if (win)
+    {
+        printMessage("YOU WON!");
+    }
+    else
+    {
+        printMessage("GAME OVER");
+    }
+    cin.get();
+
     getchar();
+
     return 0;
 }
